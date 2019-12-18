@@ -2,15 +2,43 @@
     ViewBag.Title = "Stock Price Predictor";
 }
 <div class="wrapper">
-    <h1>Dow Jones Industrial Average Price Predictor</h1>
-    <h3>
-        Enter any date (after 1915) and using a unique self-calculated formula,
-        this program will predict the price of the DJIA at that time.
-    </h3>
-    <form method="POST">
-        <input type="date" name="date" class="date" />
-        <input type="submit" name="enter" value="Enter" class="submit" />
-    </form>
+    <div class="nonGraph">
+        <h1>Dow Jones Industrial Average Market Predictor</h1>
+        <h3>
+            Enter a date to predict the state of the market!
+        </h3>
+        <!--<form method="POST" asp-action="Index" asp-controller="Form">
+            <input type="date" asp-for="date" class="date"/>
+            <input type="submit" name="enter" value="Enter" class="submit" />
+        </form>-->
+        @model StockPredict.Models.FormModel
+        @if (IsPost)
+        {
+           <div class="results">
+                <p>The price of the DJIA on @Html.DisplayFor(m => m.Date) is $@Html.DisplayFor(m => m.Price) </p>
+                @if(Model.MarketState)
+                {
+                    <p>The market is predicted to increase; buying at this time may result in short term profits.</p>
+                }
+                else
+                {
+                    <p>The market is predicted to decrease; shorting the DJIA at this time may result in short term profits. </p>
+                }
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm())
+            {
+                <input type="date" name="formName" class="date" />
+                <input type="submit" name="enter" value="Enter" class="submit" />
+            }
+        }
+
+
+
+    </div>
+   
     <div id="bigOlGraph"></div>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script>
@@ -19,18 +47,33 @@
 			theme: "light2",
 			animationEnabled: true,
 			title: {
-				text: "Simple Column Chart in ASP.NET MVC"
+				text: "Dow Jones Price vs Months Since 1915"
 			},
 			subtitles: [
-				{ text: "Try Resizing the Browser" }
+				{ text: "" }
 			],
 			data: [
-			{
+            {
+                name: "Dow Jones Historical Data",
 				type: "line", //change type to bar, line, area, pie, etc
-				
+				showInLegend: true,
                 dataPoints: @Html.Raw(ViewBag.dataPoints),
         
-			}
+            },
+                {
+                    name: "Predicted Data",
+                    type: "line",
+                    showInLegend: true,
+                    dataPoints: @Html.Raw(ViewBag.predictedPoints),
+                },
+
+                {
+                    name: "Prediction",
+                    type: "scatter",
+                    showInLegend: true,
+                    dataPoints: @Html.Raw(ViewBag.Prediction),
+                },
+
 			]
 		});
 

@@ -1,26 +1,35 @@
-﻿body {
+﻿html{
+    height: 100%;
+}
+body {
     background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7), white);
-        font-family: 'Times New Roman', Times, serif;
+    background-repeat: no-repeat;
+    font-family: 'Times New Roman', Times, serif;
+}
+.wrapper {
+    display: flex;
 }
 
 /* Start Title Styling */
+.nonGraph {
+    display: flex;
+    flex-direction: column;
+}
 h1, h3 {
     color: white;
     text-align: center;
-    margin-bottom: 1em;
-
 }
-/* End Title Sytlin */
+/* End Title Sytling */
 
 /* Start Nav Style */
-/* Navbar container */
+    /* Navbar container */
 nav {
     overflow: hidden;
     background-color: rgba(255,11,11,.5);
     display: block;
 }
 
-/* Links inside the navbar */
+    /* Links inside the navbar */
 nav a {
     float: left;
     font-size: 16px;
@@ -35,14 +44,14 @@ nav a {
     float: left;
     font-size: 22px;
 }
-/* The dropdown container */
+    /* The dropdown container */
 .about {
     float: right;
     overflow: hidden;
     padding-right: 20px;
 }
 
-/* Dropdown button */
+    /* Dropdown button */
 .about .dropbtn {
     font-size: 20px;
     border: none;
@@ -57,7 +66,7 @@ nav a {
 
 
 
-/* Dropdown content (hidden by default) */
+    /* Dropdown content (hidden by default) */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -67,7 +76,7 @@ nav a {
     z-index: 1;
 }
 
-/* Links inside the dropdown */
+    /* Links inside the dropdown */
 .dropdown-content a {
     float: none;
     color: black;
@@ -77,12 +86,12 @@ nav a {
     text-align: center;
 }
 
-/* Add a grey background color to dropdown links on hover */
+    /* Add a grey background color to dropdown links on hover */
 .dropdown-content a:hover {
     background-color: #ddd;
 }
 
-/* Show the dropdown menu on hover */
+    /* Show the dropdown menu on hover */
 .about:hover .dropdown-content {
     display: block;
 }
@@ -93,13 +102,15 @@ nav a {
 form{
     margin-top: 3em;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
 }
-.date{
+.date {
     font-size: 1em;
     border: 2px solid rgb(203, 11, 11);
-    height: 2em;
+    height: 1.5em;
+    font-family: 'Times New Roman', Times, serif;
+    width: 11.6em;
+    text-align: center;
 }
 .submit {
     font-size: 12px;
@@ -107,9 +118,49 @@ form{
 }
 /* End form style */
 
+/* Start result paragraph styles */
+.results{
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.results p {
+    text-align: center;
+    box-shadow: 0px 8px 16px 0px;
+    background-color: rgba(255,11,11,.5);
+    text-decoration-color: black;
+    font-size: 1.5em;
+}
+/* End result paragraph styles */
+
+
 #bigOlGraph{
+    margin-top: 5px;
+    margin-left: 5px;
     height: 370px;
-    width: 100%;
+    width: 80%;
     background-color: white;
-    border: 5px solid black;
+    /*border: 5px solid black;*/
+    box-shadow: 0px 8px 16px 0px;
+}
+@media screen and (max-width: 1000px){
+    .nonGraph{
+        display: inherit;
+    }
+    .wrapper{
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .form {
+        margin-top: 3em;
+        display: flex;
+        justify-content: center;
+    }
+    #bigOlGraph {
+        display: flex;
+        align-self: center;
+        margin-top: 0;
+    }    
 }
