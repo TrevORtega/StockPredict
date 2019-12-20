@@ -10,6 +10,7 @@ namespace StockPredict.Controllers
 {
     public class HomeController : Controller
     {
+        /* Get Protocall - load historical data, set all predictions to null */
         public ActionResult Index()
         {
             initHistoricalData();
@@ -18,6 +19,8 @@ namespace StockPredict.Controllers
             return View(new FormModel());
         }
 
+        /* Post Protocall - load historical data, all prediction data up to the 
+         * given date are loaded, including the predicted point */
         [HttpPost]
         public ActionResult Index(string formName)
         {

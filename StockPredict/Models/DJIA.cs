@@ -82,9 +82,10 @@ namespace StockPredict.Models
          * month must be 0-12, file name must be in format [name].[extension] */
         public double findPriceInDJIA(int year, int month, string filename)
         {
-            string path = @"/Models/DJIA_Data/" + filename;
-            int linesToSkip = ((year - 1915) + month) - 1;
-
+            
+            int linesToSkip = (12 * (year - 1915) + month) - 1;
+            string curPath = Directory.GetCurrentDirectory();
+            string path = @"C:\Users\Trevo\Documents\CompSci\StockPredict\StockPredict\Models\DJIA_Data\" + filename;
             string line = File.ReadLines(path).Skip(linesToSkip).Take(1).First();
 
             string[] data = line.Split('\t');

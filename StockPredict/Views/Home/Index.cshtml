@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Stock Price Predictor";
 }
+
 <div class="wrapper">
     <div class="nonGraph">
         <h1>Dow Jones Industrial Average Market Predictor</h1>
@@ -8,37 +9,31 @@
             Enter a date to predict the state of the market!
         </h3>
         <!--<form method="POST" asp-action="Index" asp-controller="Form">
-            <input type="date" asp-for="date" class="date"/>
-            <input type="submit" name="enter" value="Enter" class="submit" />
-        </form>-->
+        <input type="date" asp-for="date" class="date"/>
+        <input type="submit" name="enter" value="Enter" class="submit" />
+    </form>-->
         @model StockPredict.Models.FormModel
+        @using (Html.BeginForm())
+        {
+            <input type="date" name="formName" class="date" />
+            <input type="submit" name="enter" value="Enter" class="submit" />
+        }
         @if (IsPost)
         {
-           <div class="results">
-                <p>The price of the DJIA on @Html.DisplayFor(m => m.Date) is $@Html.DisplayFor(m => m.Price) </p>
-                @if(Model.MarketState)
+            <div class="results">
+                <p>The price of the DJIA on @Html.DisplayFor(m => m.Date) is $<b id="resultPrice">@Html.DisplayFor(m => m.Price)</b></p>
+                @if (Model.MarketState)
                 {
-                    <p>The market is predicted to increase; buying at this time may result in short term profits.</p>
+                    <p>The market is predicted to be increasing; buying at this time may result in short term profits.</p>
                 }
                 else
                 {
-                    <p>The market is predicted to decrease; shorting the DJIA at this time may result in short term profits. </p>
+                    <p>The market is predicted to be decreasing; shorting the DJIA at this time may result in short term profits. </p>
                 }
             </div>
         }
-        else
-        {
-            using (Html.BeginForm())
-            {
-                <input type="date" name="formName" class="date" />
-                <input type="submit" name="enter" value="Enter" class="submit" />
-            }
-        }
-
-
-
     </div>
-   
+
     <div id="bigOlGraph"></div>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script>
@@ -58,7 +53,7 @@
 				type: "line", //change type to bar, line, area, pie, etc
 				showInLegend: true,
                 dataPoints: @Html.Raw(ViewBag.dataPoints),
-        
+
             },
                 {
                     name: "Predicted Data",
@@ -80,4 +75,11 @@
         chart.render();
 	};
     </script>
+    <script>
+        document.getElementById("resultPrice").innerHTML = numberWithCommas(@Html.DisplayFor(m => m.Price));
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    </script>
+
 </div>
