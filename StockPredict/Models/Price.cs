@@ -38,7 +38,7 @@ namespace StockPredict.Models
                 return djia.findPriceInDJIA(year, month, "DJIA185.txt");
             }
             // Year included in post 1915 data
-            else if (year >= 1915 && year < 1969){
+            else if (year >= 1915 && year <= 1984){
                 return djia.findPriceInDJIA(year, month, "DJIA1915.txt");
             }
             else

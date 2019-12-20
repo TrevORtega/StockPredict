@@ -89,7 +89,8 @@ namespace StockPredict.Models
             string line = File.ReadLines(path).Skip(linesToSkip).Take(1).First();
 
             string[] data = line.Split('\t');
-            return Convert.ToDouble(data[1]);
+            // last element in data is the price
+            return Convert.ToDouble(data[data.Length - 1]);
 
         }
     }
