@@ -27,17 +27,19 @@ namespace StockPredict.Models
         /* Ensures a given year is valid, then predicts the price for that given year */
         public double getPrice(int year, int month)
         {
-            if (year <= 0)
+            if (year <= 0 || month > 12)
                 return 0;
             int months = ((year - 1915) * 12) + month;
             DJIA djia = new DJIA();
 
-            // Year included in post 1985 data
-            if ((year >= 1985 && year <= 2018) && month <= 10)
+            // Year included in post 1985 data (year range: 1985-2018)
+            if (year >= 1985 && year <= 2018)
             {
-                return djia.findPriceInDJIA(year, month, "DJIA185.txt");
+                // TODO: Fix "Sequence contains no elements" First(), function throws error
+                //return djia.findPriceInDJIA(year, month, "DJIA1985.txt");
+                return predictPrice(months);
             }
-            // Year included in post 1915 data
+            // Year included in post 1915 data (year range: 195 - 1984)
             else if (year >= 1915 && year <= 1984){
                 return djia.findPriceInDJIA(year, month, "DJIA1915.txt");
             }

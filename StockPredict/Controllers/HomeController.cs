@@ -11,6 +11,7 @@ namespace StockPredict.Controllers
     public class HomeController : Controller
     {
         /* Get Protocall - load historical data, set all predictions to null */
+        [RequireHttps]
         public ActionResult Index()
         {
             initHistoricalData();

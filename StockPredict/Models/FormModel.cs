@@ -32,7 +32,7 @@ namespace StockPredict.Models
             setMarketState();
         }
 
-        /* Takes in a string date in the form yyyy/1/dd and sets predicted price
+        /* Takes in a string date in the form yyyy-mm-dd and sets predicted price
          * of DJIA*/
         public void setPrice()
         {

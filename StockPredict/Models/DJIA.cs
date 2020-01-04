@@ -31,11 +31,20 @@ namespace StockPredict.Models
         private List<DataPoint> readFrom1915(List<DataPoint> list)
         {
             string line;
-            var path = HttpContext.Current.Server.MapPath(@"/Models/DJIA_Data/DJIA1915.txt");
-            System.IO.StreamReader file = new System.IO.StreamReader(path);
+            var path = HttpContext.Current.Server.MapPath(@"\DJIA_Data\DJIA1915.txt");
+            //string[] paths = Directory.GetFiles(@"D:/home/site/wwwroot");
+            System.IO.StreamReader file;
+            //try
+            //{
+                file = new System.IO.StreamReader(path);
+            //}
+            //catch(DirectoryNotFoundException e)
+            //{
+            //    return list;
+            //}
 
             // Convert data into a DataPoint object and append it to the list
-            while((line = file.ReadLine()) != null)
+            while ((line = file.ReadLine()) != null)
             {
                 string[] data = line.Split('\t');
                 string date = data[0];
@@ -52,9 +61,17 @@ namespace StockPredict.Models
         {
             string line;
 
-            var path = HttpContext.Current.Server.MapPath(@"/Models/DJIA_Data/DJIA1985.txt");
-            System.IO.StreamReader file = new System.IO.StreamReader(path);
+            var path = HttpContext.Current.Server.MapPath(@"\DJIA_Data\DJIA1985.txt");
+            System.IO.StreamReader file;
+            try
+            {
+                file = new System.IO.StreamReader(path);
 
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                return list;
+            }
             // Convert data into a DataPoint object and append it to the list
             while ((line = file.ReadLine()) != null)
             {
@@ -84,9 +101,17 @@ namespace StockPredict.Models
         {
             
             int linesToSkip = (12 * (year - 1915) + month) - 1;
-            string curPath = Directory.GetCurrentDirectory();
-            string path = @"C:\Users\Trevo\Documents\CompSci\StockPredict\StockPredict\Models\DJIA_Data\" + filename;
-            string line = File.ReadLines(path).Skip(linesToSkip).Take(1).First();
+            string path = HttpContext.Current.Server.MapPath(@"\DJIA_Data\" + filename);
+            string line;
+            //try
+            //{
+            var lines = File.ReadLines(path).Skip(linesToSkip);
+                line = File.ReadLines(path).Skip(linesToSkip).Take(1).First();
+            //}
+            //catch(DirectoryNotFoundException e)
+            //{
+            //    raise e;
+            //}
 
             string[] data = line.Split('\t');
             // last element in data is the price
