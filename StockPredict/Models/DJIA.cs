@@ -99,19 +99,22 @@ namespace StockPredict.Models
          * month must be 0-12, file name must be in format [name].[extension] */
         public double findPriceInDJIA(int year, int month, string filename)
         {
-            
-            int linesToSkip = (12 * (year - 1915) + month) - 1;
+            int linesToSkip;
+            if (string.Compare(filename, "DJIA1915.txt") == 0)
+            {
+                linesToSkip = (12 * (year - 1915) + month) - 1;
+
+            }
+            else if (string.Compare(filename, "DJIA1985.txt") == 0)
+            {
+                linesToSkip = (12 * (year - 1985) + month) - 1;
+
+            }
+            else
+                return 0;
+
             string path = HttpContext.Current.Server.MapPath(@"\DJIA_Data\" + filename);
-            string line;
-            //try
-            //{
-            var lines = File.ReadLines(path).Skip(linesToSkip);
-                line = File.ReadLines(path).Skip(linesToSkip).Take(1).First();
-            //}
-            //catch(DirectoryNotFoundException e)
-            //{
-            //    raise e;
-            //}
+            string line = File.ReadLines(path).Skip(linesToSkip).Take(1).FirstOrDefault();
 
             string[] data = line.Split('\t');
             // last element in data is the price

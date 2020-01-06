@@ -32,14 +32,14 @@ namespace StockPredict.Models
             int months = ((year - 1915) * 12) + month;
             DJIA djia = new DJIA();
 
-            // Year included in post 1985 data (year range: 1985-2018)
+            // Year included in post 1985 data (year range: 1985 - 2018)
             if (year >= 1985 && year <= 2018)
             {
                 // TODO: Fix "Sequence contains no elements" First(), function throws error
-                //return djia.findPriceInDJIA(year, month, "DJIA1985.txt");
-                return predictPrice(months);
+                return djia.findPriceInDJIA(year, month, "DJIA1985.txt");
+                //return predictPrice(months);
             }
-            // Year included in post 1915 data (year range: 195 - 1984)
+            // Year included in post 1915 data (year range: 1915 - 1984)
             else if (year >= 1915 && year <= 1984){
                 return djia.findPriceInDJIA(year, month, "DJIA1915.txt");
             }
