@@ -33,15 +33,8 @@ namespace StockPredict.Models
             string line;
             var path = HttpContext.Current.Server.MapPath(@"\DJIA_Data\DJIA1915.txt");
             //string[] paths = Directory.GetFiles(@"D:/home/site/wwwroot");
-            System.IO.StreamReader file;
-            //try
-            //{
-                file = new System.IO.StreamReader(path);
-            //}
-            //catch(DirectoryNotFoundException e)
-            //{
-            //    return list;
-            //}
+            System.IO.StreamReader file = new System.IO.StreamReader(path);
+            
 
             // Convert data into a DataPoint object and append it to the list
             while ((line = file.ReadLine()) != null)
